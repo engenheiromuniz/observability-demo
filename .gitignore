@@ -1,9 +1,25 @@
+# --- Maven (Compilação) ---
 target/
-.idea/
-*.iml
-.vscode/
+
+# --- Eclipse / STS (Spring Tools Suite) ---
+.metadata/
 .classpath
 .project
 .settings/
+*.launch
+*.factorypath
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+
+# --- Visual Studio Code ---
+.vscode/
+
+# --- Arquivos Compilados do Java ---
 *.class
+
+# --- Sistema Operacional ---
 .DS_Store
+Thumbs.db

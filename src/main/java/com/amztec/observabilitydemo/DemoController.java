@@ -30,7 +30,7 @@ public class DemoController {
     }
 
     @GetMapping("/hello")
-    public String hello(@RequestParam(defaultValue = "mundo") String nome) {
+    public String hello(@RequestParam(defaultValue = "André Muniz, learn and win, this is your destiny!!!") String nome) {
         helloCounter.increment();
         return "Olá, " + nome + "!";
     }
