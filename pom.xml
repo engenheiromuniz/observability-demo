@@ -53,6 +53,18 @@
             <artifactId>logstash-logback-encoder</artifactId>
             <version>7.4</version>
         </dependency>
+
+        <!-- Distributed tracing: gera trace/span IDs e propaga entre chamadas -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        </dependency>
+
+        <!-- Envia os traces coletados para o Zipkin, onde visualizamos -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-zipkin</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
