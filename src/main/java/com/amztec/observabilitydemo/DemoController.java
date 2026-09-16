@@ -1,14 +1,20 @@
 package com.amztec.observabilitydemo;
 
+
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DemoController {
+
+    private static final Logger log = LoggerFactory.getLogger(DemoController.class);
+
 
     // Um Counter é uma métrica que só sobe (ex: total de requisições).
     // Equivalente conceitual a um "item" no Zabbix, só que quem cria e
@@ -30,16 +36,17 @@ public class DemoController {
     }
 
     @GetMapping("/hello")
-    public String hello(@RequestParam(defaultValue = "André Muniz, learn and win, this is your destiny!!!") String nome) {
+    public String hello(@RequestParam(defaultValue = "mundo") String nome) {
+        log.info("Recebida requisição de saudação para: {}", nome);
         helloCounter.increment();
+        log.info("Saudação processada com sucesso");
         return "Olá, " + nome + "!";
     }
 
     @GetMapping("/slow")
     public String slow() throws InterruptedException {
-        // Simula uma operação lenta (ex: chamada a um banco de dados)
-        // para termos algo interessante para ver no /actuator/metrics.
-        return slowTimer.record(() -> {
+        log.info("Iniciando operação lenta");
+        String resultado = slowTimer.record(() -> {
             try {
                 Thread.sleep((long) (Math.random() * 500));
             } catch (InterruptedException e) {
@@ -47,5 +54,7 @@ public class DemoController {
             }
             return "Operação concluída";
         });
+        log.info("Operação lenta finalizada");
+        return resultado;
     }
-}
+} 
